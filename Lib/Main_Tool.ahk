@@ -2,8 +2,9 @@
 
 BuildTool() {
 	global AutoListbox, ListWidth, ListHeight
+	
 	Gui, -Caption +AlwaysOnTop +ToolWindow +LastFoundExist
-	ToolWindowHwnd := WinExist()
+	ToolWindowHwnd := WinExist() ;getting Hwnd of tool window to use below for context sensitive hotkeys
 	gui, Add, Listview, x0 y0 w%ListWidth% h%ListHeight% vAutoListbox gEnter_Catch, Entry|Description
 	ToolShown = 0
 	Hotkey, IfWinActive, AHK_ID%ToolWindowHwnd%
@@ -43,12 +44,14 @@ ShowTool() {
 
 HideTool() {
 	global ToolShown
+	
 	Gui, Hide
 	OnMessage(0x0006, "")
 	ToolShown = 0
 }
 
 WM_ACTIVATE(wParam) {
+	
 	If wParam
 		Return
 	else
