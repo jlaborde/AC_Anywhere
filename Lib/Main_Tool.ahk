@@ -33,12 +33,12 @@ ShowTool() {
 		HideTool()
 		return
 	}
-	ToolShown = 1
 	WinGet, ActiveHwnd, ID, A ; Get the window that was active when the tool was shown for sending later
-	If (A_CaretX = 0 || A_CaretY = 0)
+	If (A_CaretX = 0 || A_CaretY = 0 || A_CaretX = "" || A_CaretY = "")
 		return
 	Gui, Show, w%ListWidth% h%ListHeight% x%A_CaretX% y%A_CaretY%
 	OnMessage(0x0006, "WM_ACTIVATE") ;Monitoring If the tool has lost active status
+	ToolShown = 1
 	Return
 }
 
