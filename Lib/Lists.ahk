@@ -24,6 +24,7 @@ GetList() {
 }
 
 AddToList(ListPath, Entry, Description) {
+	global StringDelimiter
 	
 	Loop
 	{

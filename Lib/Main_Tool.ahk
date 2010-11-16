@@ -5,7 +5,7 @@ BuildTool() {
 	
 	Gui, -Caption +AlwaysOnTop +ToolWindow +LastFoundExist
 	ToolWindowHwnd := WinExist() ;getting Hwnd of tool window to use below for context sensitive hotkeys
-	gui, Add, Listview, x0 y0 w%ListWidth% h%ListHeight% vAutoListbox gEnter_Catch, Entry|Description
+	gui, Add, Listview, x0 y0 w%ListWidth% h%ListHeight% vAutoListbox gEnter_Catch backgroundC0C0C0 , Entry|Description
 	ToolShown = 0
 	Hotkey, IfWinActive, AHK_ID%ToolWindowHwnd%
 	Hotkey, Enter, Enter_Catch, ON
@@ -33,12 +33,35 @@ ShowTool() {
 		HideTool()
 		return
 	}
-	WinGet, ActiveHwnd, ID, A ; Get the window that was active when the tool was shown for sending later
-	If (A_CaretX = 0 || A_CaretY = 0 || A_CaretX = "" || A_CaretY = "")
-		return
-	Gui, Show, w%ListWidth% h%ListHeight% x%A_CaretX% y%A_CaretY%
+	WinGet, ActiveHwnd, ID, A
+	;~ If (A_CaretX = 0 || A_CaretY = 0 || A_CaretX = "" || A_CaretY = "")
+		;~ return
+	WinGetPos, X, Y, Width, Height, AHK_ID %ActiveHwnd%
+	LowerLeftX := X + Width - ListWidth - 10
+	LowerLeftY := Y + Height - ListHeight - 10
+	Gui, Show, w%ListWidth% h%ListHeight% x%LowerLeftX% y%LowerLeftY%
 	OnMessage(0x0006, "WM_ACTIVATE") ;Monitoring If the tool has lost active status
 	ToolShown = 1
+	
+	/* Positioning Formulas relative to the active window
+	
+	Upper Right Corner
+		LowerLeftX := X + Width - ListWidth - 10
+		LowerLeftY := Y + 10
+		
+	Upper Left Corner
+		LowerLeftX := X + 10
+		LowerLeftY := Y + 10
+		
+	Lower Left Corner
+		LowerLeftX := X + 10
+		LowerLeftY := Y + Height - ListHeight - 10
+		
+	Lower Right Corner
+		LowerLeftX := X + Width - ListWidth - 10
+		LowerLeftY := Y + Height - ListHeight - 10
+	*/
+
 	Return
 }
 
