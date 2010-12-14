@@ -1,1 +1,10 @@
 Auto Complete Anywhere
+	**Note - This app is in the early early development stages!!!**
+	
+What this app will be:
+	AC Anywhere will be a small tool residing in the task tray that upon hotkey press will show within the active window (One of its four corners) allowing you to select predefined text and "send" it to the active application.
+	It will contain up to five different category tabs of text that you define. These "Word Sets" (contained in a SQLite flat file) can be loaded and saved for various projects and can be password protected and encrypted.
+	Each text string will also contain a description. This will make it very useful as a manual intellisense type of tool for various IDEs or text editors that do not offer it. 
+	For example you can save a tab full of functions and their definitions and another tab with constants and a description of the value and type.
+	
+	
